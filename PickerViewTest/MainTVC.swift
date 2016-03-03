@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
-import SwiftyJSON
+import SwiftyJSON  ////目前還沒用到
 
 class MainTVC: UITableViewController {
 
@@ -41,7 +41,7 @@ class MainTVC: UITableViewController {
                 if let JSON = response.result.value
                 {
                     self.jsonArray = JSON as! NSMutableArray
-                    //print(self.jsonArray)
+                    //print("這是整個JSON\(self.jsonArray)")
                     
                     for item in self.jsonArray
                     {
@@ -49,21 +49,21 @@ class MainTVC: UITableViewController {
                         
                         for item2 in oneArray
                         {
-                            //print("這應該要進入color\(item2)")
+                            //print("這裡應該要進入color\(item2)")
                             self.testarray.addObject(item2)
                             
                             let twoArray:NSMutableArray = item2["picture"] as! NSMutableArray
                             
                             for item3 in twoArray
                             {
-                                print("這應該是要進入picture\(item3)")
+                                //print("這裡應該是要進入picture\(item3)")
                                 self.johnnyArray.addObject(item3)
                             }
                             
                         }
-                        
                     
                     }
+                
                 }
             
             self.tableView.reloadData()
@@ -98,11 +98,23 @@ class MainTVC: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! MainCell
         cell.backgroundColor = UIColor.clearColor()
         
-        //let dic1 = self.jsonArray[indexPath.row] as! NSDictionary
-        let dic2 = self.johnnyArray[indexPath.row]
+//        let dic1 = self.jsonArray[indexPath.row]
+//        let dic2 = self.testarray[indexPath.row]
+        let dic3 = self.johnnyArray[indexPath.row]
 
         
-        cell.textLabel?.text = dic2["image"] as? String
+        if dic3["image"] != nil
+        {
+            let imageURL = "http://magipea.com/admin/uploads/" + "\(dic3["image"] as! String)"
+            print(imageURL)
+            Alamofire.request(.GET, imageURL).responseImage { response in
+                
+                    if let image = response.result.value
+                    {
+                        cell.bigImage.image = image
+                    }
+            }
+        }
         
         return cell
     }
