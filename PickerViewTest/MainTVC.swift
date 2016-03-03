@@ -25,6 +25,7 @@ class MainTVC: UITableViewController {
         
         self.tableView.registerClass(MainCell.self, forCellReuseIdentifier: "cell")
         self.tableView.backgroundColor = UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1)
+        self.tableView.separatorStyle = .None
         self.tableView.rowHeight = 200
         
         alamofireGet()
@@ -97,6 +98,7 @@ class MainTVC: UITableViewController {
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! MainCell
         cell.backgroundColor = UIColor.clearColor()
+        cell.selectionStyle = .None
         
         let dic1 = self.jsonArray[indexPath.row]
 //      let dic2 = self.testarray[indexPath.row]
@@ -132,6 +134,27 @@ class MainTVC: UITableViewController {
         }
         
         
+        if dic1["sale_price_ntd"] != nil
+        {
+            cell.salePriceLabel.text = "NT$:" + "\(dic1["sale_price_ntd"] as! String)"
+        }
+        
+        
+        if dic1["price_ntd"] != nil
+        {
+            let string = "Testing Attributed Strings" as NSString
+            let attributedString = NSMutableAttributedString(string: string as String)
+            
+             let secondAttributes = [NSForegroundColorAttributeName: UIColor.redColor(), NSBackgroundColorAttributeName: UIColor.blueColor(), NSStrikethroughStyleAttributeName: 1]
+            
+            attributedString.addAttributes(secondAttributes, range: string.rangeOfString("Attributed"))
+            
+            cell.priceLabel.attributedText = attributedString
+            
+            cell.priceLabel.text = "NT$" + "\(dic1["price_ntd"] as! String)"
+
+            
+        }
         
         
         return cell
