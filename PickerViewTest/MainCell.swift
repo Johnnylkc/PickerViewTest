@@ -12,6 +12,9 @@ class MainCell: UITableViewCell {
     
     let basicView = UIView()
     let bigImage = UIImageView()
+    let titleTextView = UITextView()
+    let discountLabel = UILabel()
+    let priceLabel = UILabel()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?)
     {
@@ -23,6 +26,22 @@ class MainCell: UITableViewCell {
         bigImage.backgroundColor = UIColor.yellowColor()
         basicView.addSubview(bigImage)
         
+        titleTextView.backgroundColor = UIColor.redColor()
+        titleTextView.scrollEnabled = false
+        titleTextView.editable = false
+        titleTextView.font = UIFont.boldSystemFontOfSize(15)
+        titleTextView.textContainerInset = UIEdgeInsets(top: 5, left: 0, bottom: 3, right: 1)
+        basicView.addSubview(titleTextView)
+        
+        discountLabel.backgroundColor = UIColor.lightGrayColor()
+        discountLabel.font = UIFont.systemFontOfSize(13)
+        discountLabel.textColor = UIColor.blackColor()
+        basicView.addSubview(discountLabel)
+        
+        priceLabel.backgroundColor = UIColor.greenColor()
+        priceLabel.font = UIFont.boldSystemFontOfSize(30)
+        priceLabel.textColor = UIColor.blackColor()
+        basicView.addSubview(priceLabel)
         
         autoLayout()
     }
@@ -32,8 +51,11 @@ class MainCell: UITableViewCell {
     {
         basicView.translatesAutoresizingMaskIntoConstraints = (false)
         bigImage.translatesAutoresizingMaskIntoConstraints = (false)
+        titleTextView.translatesAutoresizingMaskIntoConstraints = (false)
+        discountLabel.translatesAutoresizingMaskIntoConstraints = (false)
+        priceLabel.translatesAutoresizingMaskIntoConstraints = (false)
     
-        let dic = ["basicView":basicView,"bigImage":bigImage]
+        let dic = ["basicView":basicView,"bigImage":bigImage,"titleTextView":titleTextView,"discountLabel":discountLabel,"priceLabel":priceLabel]
         
         
         ////basicView
@@ -51,7 +73,30 @@ class MainCell: UITableViewCell {
         let bigImageV = NSLayoutConstraint.constraintsWithVisualFormat("V:|[bigImage]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
         basicView.addConstraints(bigImageV)
     
+        
+        ////titleTextView
+        let titleTextViewH = NSLayoutConstraint.constraintsWithVisualFormat("H:[bigImage][titleTextView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        basicView.addConstraints(titleTextViewH)
+        
+        let titleTextViewV = NSLayoutConstraint.constraintsWithVisualFormat("V:|[titleTextView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        basicView.addConstraints(titleTextViewV)
     
+        
+        ////discountLabel
+        let discountLabelH = NSLayoutConstraint.constraintsWithVisualFormat("H:[bigImage][discountLabel]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        basicView.addConstraints(discountLabelH)
+        
+        let discountLabelV = NSLayoutConstraint.constraintsWithVisualFormat("V:[titleTextView][discountLabel(20)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        basicView.addConstraints(discountLabelV)
+        
+        
+        ////priceLabel
+        let priceLabelH = NSLayoutConstraint.constraintsWithVisualFormat("[bigImage][priceLabel(90)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        basicView.addConstraints(priceLabelH)
+        
+        let priceLabelV = NSLayoutConstraint.constraintsWithVisualFormat("V:[discountLabel][priceLabel(40)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        basicView.addConstraints(priceLabelV)
+        
     }
     
     

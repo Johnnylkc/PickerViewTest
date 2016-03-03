@@ -98,23 +98,41 @@ class MainTVC: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! MainCell
         cell.backgroundColor = UIColor.clearColor()
         
-//        let dic1 = self.jsonArray[indexPath.row]
-//        let dic2 = self.testarray[indexPath.row]
+        let dic1 = self.jsonArray[indexPath.row]
+//      let dic2 = self.testarray[indexPath.row]
         let dic3 = self.johnnyArray[indexPath.row]
 
         
         if dic3["image"] != nil
         {
             let imageURL = "http://magipea.com/admin/uploads/" + "\(dic3["image"] as! String)"
-            print(imageURL)
             Alamofire.request(.GET, imageURL).responseImage { response in
                 
-                    if let image = response.result.value
-                    {
-                        cell.bigImage.image = image
+                if let image = response.result.value
+                {
+                    dispatch_async(dispatch_get_main_queue())
+                        {
+                            cell.bigImage.image = image
                     }
+                    
+                }
             }
         }
+
+        
+        if dic1["content"] != nil
+        {
+            cell.titleTextView.text = dic1["name"] as! String
+        }
+        
+        
+        if dic1["product_discount"] != nil
+        {
+            cell.discountLabel.text = "Discount 折扣 : " + "\(dic1["product_discount"] as! String)" + "%"
+        }
+        
+        
+        
         
         return cell
     }
