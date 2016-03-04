@@ -47,8 +47,8 @@ class MainCell: UITableViewCell {
         
         priceLabel.backgroundColor = UIColor.yellowColor()
         priceLabel.font = UIFont.systemFontOfSize(13)
+        priceLabel.textAlignment = .Center
         priceLabel.textColor = UIColor.lightGrayColor()
-        
         basicView.addSubview(priceLabel)
         
         autoLayout()

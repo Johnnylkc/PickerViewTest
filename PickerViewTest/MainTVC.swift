@@ -142,17 +142,11 @@ class MainTVC: UITableViewController {
         
         if dic1["price_ntd"] != nil
         {
-            let string = "Testing Attributed Strings" as NSString
-            let attributedString = NSMutableAttributedString(string: string as String)
-            
-             let secondAttributes = [NSForegroundColorAttributeName: UIColor.redColor(), NSBackgroundColorAttributeName: UIColor.blueColor(), NSStrikethroughStyleAttributeName: 1]
-            
-            attributedString.addAttributes(secondAttributes, range: string.rangeOfString("Attributed"))
-            
-            cell.priceLabel.attributedText = attributedString
-            
-            cell.priceLabel.text = "NT$" + "\(dic1["price_ntd"] as! String)"
 
+            let attributedText = NSAttributedString(string: "NT$" + "\(dic1["price_ntd"] as! String)", attributes: [NSStrikethroughStyleAttributeName: 1])
+            
+            cell.priceLabel.attributedText = attributedText
+            
             
         }
         
