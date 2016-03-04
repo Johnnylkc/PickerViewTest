@@ -17,6 +17,8 @@ class MainTVC: UITableViewController {
     var jsonArray = NSMutableArray()
     var testarray = NSMutableArray()
     var johnnyArray = NSMutableArray()
+    
+    let selectView = UIView()
 
     
     override func viewDidLoad()
@@ -28,11 +30,20 @@ class MainTVC: UITableViewController {
         self.tableView.separatorStyle = .None
         self.tableView.rowHeight = 200
         
+        allUI()
         alamofireGet()
 
         
     }
 
+    func allUI()
+    {
+        selectView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 50)
+        selectView.backgroundColor = UIColor.brownColor()
+        //self.tableView.addSubview(selectView)
+        
+    }
+    
    
     func alamofireGet()
     {
@@ -93,6 +104,7 @@ class MainTVC: UITableViewController {
         return 200
     }
 
+  
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {

@@ -13,6 +13,8 @@
 		B28295501C883D9F0088A6B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B282954E1C883D9F0088A6B3 /* LaunchScreen.storyboard */; };
 		B28295581C883DC10088A6B3 /* MainTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28295571C883DC10088A6B3 /* MainTVC.swift */; };
 		B282955A1C883DD00088A6B3 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28295591C883DD00088A6B3 /* MainCell.swift */; };
+		B2F964DC1C8984D5004921CC /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F964DB1C8984D5004921CC /* TestVC.swift */; };
+		B2F964DE1C898C48004921CC /* TestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F964DD1C898C48004921CC /* TestCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		B28295511C883D9F0088A6B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B28295571C883DC10088A6B3 /* MainTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTVC.swift; sourceTree = "<group>"; };
 		B28295591C883DD00088A6B3 /* MainCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
+		B2F964DB1C8984D5004921CC /* TestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
+		B2F964DD1C898C48004921CC /* TestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCell.swift; sourceTree = "<group>"; };
 		D4BA9A1A5CD05DFE7F843B45 /* Pods-PickerViewTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickerViewTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PickerViewTest/Pods-PickerViewTest.debug.xcconfig"; sourceTree = "<group>"; };
 		FC390081AED26E52E87700DA /* Pods-PickerViewTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickerViewTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-PickerViewTest/Pods-PickerViewTest.release.xcconfig"; sourceTree = "<group>"; };
 		FD52F8733D65850E43AC7CD9 /* Pods_PickerViewTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickerViewTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +85,8 @@
 				B28295451C883D9F0088A6B3 /* AppDelegate.swift */,
 				B28295571C883DC10088A6B3 /* MainTVC.swift */,
 				B28295591C883DD00088A6B3 /* MainCell.swift */,
+				B2F964DB1C8984D5004921CC /* TestVC.swift */,
+				B2F964DD1C898C48004921CC /* TestCell.swift */,
 				B282954C1C883D9F0088A6B3 /* Assets.xcassets */,
 				B282954E1C883D9F0088A6B3 /* LaunchScreen.storyboard */,
 				B28295511C883D9F0088A6B3 /* Info.plist */,
@@ -209,7 +215,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2F964DC1C8984D5004921CC /* TestVC.swift in Sources */,
 				B28295581C883DC10088A6B3 /* MainTVC.swift in Sources */,
+				B2F964DE1C898C48004921CC /* TestCell.swift in Sources */,
 				B28295461C883D9F0088A6B3 /* AppDelegate.swift in Sources */,
 				B282955A1C883DD00088A6B3 /* MainCell.swift in Sources */,
 			);
