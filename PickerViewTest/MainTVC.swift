@@ -125,8 +125,8 @@ class MainTVC: UITableViewController {
                 if let image = response.result.value
                 {
                     dispatch_async(dispatch_get_main_queue())
-                        {
-                            cell.bigImage.image = image
+                    {
+                        cell.bigImage.image = image
                     }
                     
                 }
