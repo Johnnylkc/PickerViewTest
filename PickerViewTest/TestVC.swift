@@ -36,12 +36,10 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         automaticallyAdjustsScrollViewInsets = false
+        tableView.showsVerticalScrollIndicator = false
         tableView.registerClass(MainCell.self, forCellReuseIdentifier: "cell")
         self.view.addSubview(self.tableView)
-        
     
-//        scrollBar.contentSize = CGSizeMake(self.view.frame.size.width/2 , 0)
-//        self.view.addSubview(scrollBar)
         
         scrollButton1.frame = CGRectMake(10, 5, self.view.frame.size.width/2, 35)
         scrollButton1.backgroundColor = UIColor.whiteColor()
@@ -64,8 +62,10 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         scrollButton3.addTarget(self, action: "scrollButton3_click:", forControlEvents: .TouchUpInside)
         scrollBar.addSubview(scrollButton3)
     
+        ////這個scrollView的設定 擺在裡面的按鈕設定之後 是因為這樣才取得到 所有按鈕的寬 才知道contentSize要給多少
         scrollBar.backgroundColor = UIColor.redColor()
         scrollBar.contentSize = CGSizeMake(scrollButton1.frame.size.width * 3 + 40, 0)
+        scrollBar.showsHorizontalScrollIndicator = false
         self.view.addSubview(scrollBar)
         
         
@@ -90,15 +90,16 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
     
+
+    
+    
+    
     
     func autoLayout()
     {
         tableView.translatesAutoresizingMaskIntoConstraints = (false)
         scrollBar.translatesAutoresizingMaskIntoConstraints = (false)
-        
-//        scrollButton1.translatesAutoresizingMaskIntoConstraints = (false)
-//        scrollButton2.translatesAutoresizingMaskIntoConstraints = (false)
-//        scrollButton3.translatesAutoresizingMaskIntoConstraints = (false)
+
         
         let dic = ["tableView":tableView,"scrollBar":scrollBar]
         
@@ -116,22 +117,6 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         let scrollBarV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-64-[scrollBar][tableView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
         self.view.addConstraints(scrollBarV)
-        
-//        ////scrollButton水平之間的距離和寬度
-//        let scrollButtonsH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-10-[scrollButton1]-10-[scrollButton2]-10-[scrollButton3]-10-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-//        scrollBar.addConstraints(scrollButtonsH)
-//        
-//        ////scrollButton1的垂直位置和高度
-//        let scrollButton1V = NSLayoutConstraint.constraintsWithVisualFormat("V:|[scrollButton1]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-//        scrollBar.addConstraints(scrollButton1V)
-//        
-//        ////scrollButton2的垂直位置和高度
-//        let scrollButton2V = NSLayoutConstraint.constraintsWithVisualFormat("V:|[scrollButton2]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-//        scrollBar.addConstraints(scrollButton2V)
-//        
-//        ////scrollButton3的垂直位置和高度
-//        let scrollButton3V = NSLayoutConstraint.constraintsWithVisualFormat("V:|[scrollButton3]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-//        scrollBar.addConstraints(scrollButton3V)
         
         
     }
@@ -153,11 +138,15 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         return 200
     }
     
+  
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! MainCell
         cell.selectionStyle = .None
-        //cell.textLabel?.text = "ggg"
+
+        
+        
         
         return cell
     }
