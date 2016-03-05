@@ -40,31 +40,56 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         self.view.addSubview(self.tableView)
         
     
-        scrollBar.backgroundColor = UIColor.redColor()
-        scrollBar.contentSize = CGSizeMake(self.view.frame.size.width + 50, 0)
-        self.view.addSubview(scrollBar)
+//        scrollBar.contentSize = CGSizeMake(self.view.frame.size.width/2 , 0)
+//        self.view.addSubview(scrollBar)
         
-        scrollButton1.frame = CGRectMake(10, 5, self.view.frame.size.width/4, 30)
+        scrollButton1.frame = CGRectMake(10, 5, self.view.frame.size.width/2, 35)
         scrollButton1.backgroundColor = UIColor.whiteColor()
         scrollButton1.setTitle("按鈕1", forState: .Normal)
         scrollButton1.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        scrollButton1.addTarget(self, action: "scrollButton1_click:", forControlEvents: .TouchUpInside)
         scrollBar.addSubview(scrollButton1)
         
-        scrollButton2.frame = CGRectMake(120, 5, self.view.frame.size.width/4, 30)
+        scrollButton2.frame = CGRectMake(scrollButton1.frame.size.width+20, 5, self.view.frame.size.width/2, 35)
         scrollButton2.backgroundColor = UIColor.whiteColor()
         scrollButton2.setTitle("按鈕2", forState: .Normal)
         scrollButton2.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        scrollButton2.addTarget(self, action: "scrollButton2_click:", forControlEvents: .TouchUpInside)
         scrollBar.addSubview(scrollButton2)
         
-        scrollButton3.frame = CGRectMake(230, 5, self.view.frame.size.width/4, 30)
+        scrollButton3.frame = CGRectMake(scrollButton1.frame.size.width*2 + 30, 5, self.view.frame.size.width/2, 35)
         scrollButton3.backgroundColor = UIColor.whiteColor()
         scrollButton3.setTitle("按鈕3", forState: .Normal)
         scrollButton3.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        scrollButton3.addTarget(self, action: "scrollButton3_click:", forControlEvents: .TouchUpInside)
         scrollBar.addSubview(scrollButton3)
     
-    
+        scrollBar.backgroundColor = UIColor.redColor()
+        scrollBar.contentSize = CGSizeMake(scrollButton1.frame.size.width * 3 + 40, 0)
+        self.view.addSubview(scrollBar)
+        
         
     }
+    
+    ////三個scrollButton action
+    func scrollButton1_click(sender:UIButton)
+    {
+        print("按鈕1")
+    }
+    
+    
+    func scrollButton2_click(sender:UIButton)
+    {
+        print("按鈕2")
+    }
+    
+    
+    func scrollButton3_click(sender:UIButton)
+    {
+        print("按鈕3")
+    }
+    
+    
     
     func autoLayout()
     {
