@@ -17,6 +17,14 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     let scrollButton2 = UIButton()
     let scrollButton3 = UIButton()
     
+    let testView = UIView()
+    
+    
+    var tableViewH = [NSLayoutConstraint]()
+    var tableViewV = [NSLayoutConstraint]()
+    var scrollBarH = [NSLayoutConstraint]()
+    var scrollBarV = [NSLayoutConstraint]()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -36,7 +44,7 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         automaticallyAdjustsScrollViewInsets = false
-        tableView.showsVerticalScrollIndicator = false
+        //tableView.showsVerticalScrollIndicator = false
         tableView.registerClass(MainCell.self, forCellReuseIdentifier: "cell")
         self.view.addSubview(self.tableView)
     
@@ -66,8 +74,12 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         scrollBar.backgroundColor = UIColor.redColor()
         scrollBar.contentSize = CGSizeMake(scrollButton1.frame.size.width * 3 + 40, 0)
         scrollBar.showsHorizontalScrollIndicator = false
-        self.view.addSubview(scrollBar)
+        //self.view.addSubview(scrollBar)
         
+        
+        testView.frame = CGRectMake(0, 64, self.view.frame.size.width, 46)
+        testView.backgroundColor = UIColor.blueColor()
+        self.view.addSubview(testView)
         
     }
     
@@ -90,6 +102,21 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     }
     
     
+    
+    
+    
+    func scrollViewDidScroll(scrollView: UIScrollView)
+    {
+        print(tableView.contentOffset.y)
+
+        if (tableView.contentOffset.y > 0)
+        {
+            testView.frame.size.height = testView.frame.size.height - tableView.contentOffset.y
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            //tableViewV[0].constant = tableViewV[0].constant - tableView.contentOffset.y
+        }
+       // print(testView.frame.size.height)
+    }
 
     
     
@@ -98,25 +125,26 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     func autoLayout()
     {
         tableView.translatesAutoresizingMaskIntoConstraints = (false)
-        scrollBar.translatesAutoresizingMaskIntoConstraints = (false)
+        //scrollBar.translatesAutoresizingMaskIntoConstraints = (false)
 
         
-        let dic = ["tableView":tableView,"scrollBar":scrollBar]
+        let dic = ["tableView":tableView]
         
+
         ////tableView
-        let tableViewH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[tableView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        tableViewH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[tableView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
         self.view.addConstraints(tableViewH)
         
-        let tableViewV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-110-[tableView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        tableViewV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-110-[tableView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
         self.view.addConstraints(tableViewV)
         
         
         ////scrollBar
-        let scrollBarH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[scrollBar]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-        self.view.addConstraints(scrollBarH)
-        
-        let scrollBarV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-64-[scrollBar][tableView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-        self.view.addConstraints(scrollBarV)
+//        scrollBarH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[scrollBar]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+//        self.view.addConstraints(scrollBarH)
+//        
+//        scrollBarV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-64-[scrollBar][tableView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+//        self.view.addConstraints(scrollBarV)
         
         
     }
@@ -138,6 +166,7 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         return 200
     }
     
+
   
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
