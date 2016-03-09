@@ -30,21 +30,34 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         super.viewDidLoad()
         
         
+
+        
         allUI()
         autoLayout()
+        
+    }
+    
+    
+    override func viewDidAppear(animated: Bool)
+    {
+        super.viewDidAppear(true)
+        
+
         
     }
 
     func allUI()
     {
         
-        self.view.backgroundColor = UIColor.greenColor()
+        self.view.backgroundColor = UIColor.whiteColor()
         
-        tableView.backgroundColor = UIColor.greenColor()
+        tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height )
+        tableView.backgroundColor = UIColor.grayColor()
         tableView.delegate = self
         tableView.dataSource = self
         automaticallyAdjustsScrollViewInsets = false
         //tableView.showsVerticalScrollIndicator = false
+        
         tableView.registerClass(MainCell.self, forCellReuseIdentifier: "cell")
         self.view.addSubview(self.tableView)
     
@@ -71,15 +84,25 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         scrollBar.addSubview(scrollButton3)
     
         ////這個scrollView的設定 擺在裡面的按鈕設定之後 是因為這樣才取得到 所有按鈕的寬 才知道contentSize要給多少
+        scrollBar.frame = CGRectMake(0, 64, self.view.frame.size.width, 46)
         scrollBar.backgroundColor = UIColor.redColor()
         scrollBar.contentSize = CGSizeMake(scrollButton1.frame.size.width * 3 + 40, 0)
         scrollBar.showsHorizontalScrollIndicator = false
-        //self.view.addSubview(scrollBar)
+        self.view.addSubview(scrollBar)
         
         
         testView.frame = CGRectMake(0, 64, self.view.frame.size.width, 46)
         testView.backgroundColor = UIColor.blueColor()
-        self.view.addSubview(testView)
+        //self.view.addSubview(testView)
+        //tableView.tableHeaderView = testView
+        
+        let slideDownGest = UISwipeGestureRecognizer(target: self, action: "swipeDown:")
+        slideDownGest.direction = .Down
+        self.tableView.addGestureRecognizer(slideDownGest)
+        
+       
+        
+
         
     }
     
@@ -101,21 +124,59 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         print("按鈕3")
     }
     
+    ////UISwipeGestureRecognizer action執行
+    func swipeDown(sender:UISwipeGestureRecognizer)
+    {
+        print("你剛剛急往下滑")
+        
+        
+    }
     
     
+    func scrollViewWillBeginDragging(scrollView: UIScrollView)
+    {
+       
+        
+    }
     
     
     func scrollViewDidScroll(scrollView: UIScrollView)
     {
-        print(tableView.contentOffset.y)
+        
+        let currentOffSet:CGFloat = scrollView.contentOffset.y
 
-        if (tableView.contentOffset.y > 0)
+        
+        if (scrollView.contentOffset.y > 0  )
         {
-            testView.frame.size.height = testView.frame.size.height - tableView.contentOffset.y
-            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            //tableViewV[0].constant = tableViewV[0].constant - tableView.contentOffset.y
+            
+            print(currentOffSet)
+            
+            UIView.animateWithDuration(0.4, animations: { () -> Void in
+                self.scrollBarV[0].constant = 18
+                self.tableViewV[0].constant = 64
+                
+                self.view.layoutSubviews()
+                
+            })
+
         }
-       // print(testView.frame.size.height)
+        else if (scrollView.contentOffset.y < 20)
+        {
+           
+            
+            
+            
+            UIView.animateWithDuration(0.4, animations: { () -> Void in
+                self.scrollBarV[0].constant = 64
+                self.tableViewV[0].constant = 110
+             
+                
+                self.view.layoutSubviews()
+
+            })
+        }
+        
+        
     }
 
     
@@ -125,10 +186,9 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     func autoLayout()
     {
         tableView.translatesAutoresizingMaskIntoConstraints = (false)
-        //scrollBar.translatesAutoresizingMaskIntoConstraints = (false)
-
+        scrollBar.translatesAutoresizingMaskIntoConstraints = (false)
         
-        let dic = ["tableView":tableView]
+        let dic = ["tableView":tableView,"scrollBar":scrollBar]
         
 
         ////tableView
@@ -138,13 +198,13 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tableViewV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-110-[tableView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
         self.view.addConstraints(tableViewV)
         
-        
+  
         ////scrollBar
-//        scrollBarH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[scrollBar]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-//        self.view.addConstraints(scrollBarH)
-//        
-//        scrollBarV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-64-[scrollBar][tableView]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
-//        self.view.addConstraints(scrollBarV)
+        scrollBarH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[scrollBar]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        self.view.addConstraints(scrollBarH)
+        
+        scrollBarV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-64-[scrollBar(46)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        self.view.addConstraints(scrollBarV)
         
         
     }
@@ -166,7 +226,8 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         return 200
     }
     
-
+  
+    
   
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
