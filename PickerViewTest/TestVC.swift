@@ -25,6 +25,8 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var scrollBarH = [NSLayoutConstraint]()
     var scrollBarV = [NSLayoutConstraint]()
     
+    var currentoffset:CGFloat = 0
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -96,11 +98,9 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         //self.view.addSubview(testView)
         //tableView.tableHeaderView = testView
         
-        let slideDownGest = UISwipeGestureRecognizer(target: self, action: "swipeDown:")
-        slideDownGest.direction = .Down
-        self.tableView.addGestureRecognizer(slideDownGest)
-        
-       
+        let tap = UITapGestureRecognizer(target: self, action: "tap:")
+        tap.numberOfTapsRequired = 1
+        self.view.addGestureRecognizer(tap)
         
 
         
@@ -124,13 +124,22 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         print("按鈕3")
     }
     
-    ////UISwipeGestureRecognizer action執行
-    func swipeDown(sender:UISwipeGestureRecognizer)
+    
+    func tap(sender:UITapGestureRecognizer)
     {
-        print("你剛剛急往下滑")
-        
-        
+        UIView.animateWithDuration(0.3) { () -> Void in
+            
+            self.scrollBarV[0].constant = 64
+            self.view.layoutSubviews()
+        }
+    
+        print("gt")
     }
+    
+    
+    
+    
+    
     
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView)
@@ -143,41 +152,73 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     func scrollViewDidScroll(scrollView: UIScrollView)
     {
         
-        let currentOffSet:CGFloat = scrollView.contentOffset.y
 
-        
-        if (scrollView.contentOffset.y > 0  )
-        {
-            
-            print(currentOffSet)
-            
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
-                self.scrollBarV[0].constant = 18
-                self.tableViewV[0].constant = 64
-                
-                self.view.layoutSubviews()
-                
-            })
-
-        }
-        else if (scrollView.contentOffset.y < 20)
+        if scrollView.panGestureRecognizer.translationInView(scrollView).y < 0
         {
            
-            
-            
-            
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
-                self.scrollBarV[0].constant = 64
-                self.tableViewV[0].constant = 110
-             
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                
+                self.scrollBarV[0].constant = 18
+                self.tableViewV[0].constant = 64
+                self.scrollBar.alpha = 0
                 
                 self.view.layoutSubviews()
+                                
+                })
 
+        }
+        else
+        {
+
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                
+                self.scrollBarV[0].constant = 64
+                self.tableViewV[0].constant = 110
+                
+                self.view.layoutSubviews()
+                
+                
             })
+                            
+                scrollBar.alpha = 1
+
+        
         }
         
         
+        
+//        if (scrollView.contentOffset.y > 0  )
+//        {
+//            
+//            UIView.animateWithDuration(0.3, animations: { () -> Void in
+//                self.scrollBarV[0].constant = 18
+//                self.tableViewV[0].constant = 64
+//                self.scrollBar.alpha = 0
+//
+//                self.view.layoutSubviews()
+//                
+//            })
+//
+//
+//        }
+//        else if (scrollView.contentOffset.y < 20)
+//        {
+//            
+//            UIView.animateWithDuration(0.3, animations: { () -> Void in
+//                self.scrollBarV[0].constant = 64
+//                self.tableViewV[0].constant = 110
+//             
+//                self.view.layoutSubviews()
+//
+//            })
+//            
+//            scrollBar.alpha = 1
+//
+//        }
+     
+        
     }
+
 
     
     
