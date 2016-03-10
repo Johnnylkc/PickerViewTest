@@ -159,7 +159,6 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             UIView.animateWithDuration(0.3, animations: { () -> Void in
                 
                 self.scrollBarV[0].constant = 18
-                self.tableViewV[0].constant = 64
                 self.scrollBar.alpha = 0
                 
                 self.view.layoutSubviews()
@@ -173,7 +172,6 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
             UIView.animateWithDuration(0.3, animations: { () -> Void in
                 
                 self.scrollBarV[0].constant = 64
-                self.tableViewV[0].constant = 110
                 
                 self.view.layoutSubviews()
                 
@@ -185,37 +183,6 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         }
         
-        
-        
-//        if (scrollView.contentOffset.y > 0  )
-//        {
-//            
-//            UIView.animateWithDuration(0.3, animations: { () -> Void in
-//                self.scrollBarV[0].constant = 18
-//                self.tableViewV[0].constant = 64
-//                self.scrollBar.alpha = 0
-//
-//                self.view.layoutSubviews()
-//                
-//            })
-//
-//
-//        }
-//        else if (scrollView.contentOffset.y < 20)
-//        {
-//            
-//            UIView.animateWithDuration(0.3, animations: { () -> Void in
-//                self.scrollBarV[0].constant = 64
-//                self.tableViewV[0].constant = 110
-//             
-//                self.view.layoutSubviews()
-//
-//            })
-//            
-//            scrollBar.alpha = 1
-//
-//        }
-     
         
     }
 
@@ -236,7 +203,7 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         tableViewH = NSLayoutConstraint.constraintsWithVisualFormat("H:|[tableView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
         self.view.addConstraints(tableViewH)
         
-        tableViewV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-110-[tableView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        tableViewV = NSLayoutConstraint.constraintsWithVisualFormat("V:[scrollBar][tableView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
         self.view.addConstraints(tableViewV)
         
   
