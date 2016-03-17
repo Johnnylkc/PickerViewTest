@@ -55,27 +55,36 @@ class MainTVC: UITableViewController {
                     self.jsonArray = JSON as! NSMutableArray
                     //print("這是整個JSON\(self.jsonArray)")
                     
+                    
+                    
                     for item in self.jsonArray
                     {
-                       let oneArray:NSMutableArray = item["color"] as! NSMutableArray
                         
-                        for item2 in oneArray
-                        {
-                            //print("這裡應該要進入color\(item2)")
-                            self.testarray.addObject(item2)
-                            
-                            let twoArray:NSMutableArray = item2["picture"] as! NSMutableArray
-                            
-                            for item3 in twoArray
+                        
+                        let oneArray:NSMutableArray = item["color"] as! NSMutableArray
+                        
+                            for item2 in oneArray
                             {
+                                //print("這裡應該要進入color\(item2)")
+                                self.testarray.addObject(item2)
+                            
+                                let twoArray:NSMutableArray = item2["picture"] as! NSMutableArray
+                            
+                                for item3 in twoArray
+                                {
                                 //print("這裡應該是要進入picture\(item3)")
                                 self.johnnyArray.addObject(item3)
-                            }
+                                //print(self.johnnyArray)
+                                }
                             
-                        }
+                        
+                            }
                     
                     }
-                
+            
+                  
+            
+           
                 }
             
             self.tableView.reloadData()
@@ -119,6 +128,8 @@ class MainTVC: UITableViewController {
         
         if dic3["image"] != nil
         {
+            cell.indicator.startAnimating()
+            
             let imageURL = "http://magipea.com/admin/uploads/" + "\(dic3["image"] as! String)"
             Alamofire.request(.GET, imageURL).responseImage { response in
                 
@@ -126,6 +137,7 @@ class MainTVC: UITableViewController {
                 {
                     dispatch_async(dispatch_get_main_queue())
                     {
+                        cell.indicator.stopAnimating()
                         cell.bigImage.image = image
                     }
                     
@@ -134,7 +146,7 @@ class MainTVC: UITableViewController {
         }
 
         
-        if dic1["content"] != nil
+        if dic1["name"] != nil
         {
             cell.titleTextView.text = dic1["name"] as! String
         }

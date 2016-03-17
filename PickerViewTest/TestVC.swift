@@ -25,7 +25,7 @@ class TestVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var scrollBarH = [NSLayoutConstraint]()
     var scrollBarV = [NSLayoutConstraint]()
     
-    var currentoffset:CGFloat = 0
+    //var currentoffset:CGFloat = 0
     
     override func viewDidLoad()
     {

@@ -17,16 +17,23 @@ class MainCell: UITableViewCell {
     let salePriceLabel = UILabel()
     let priceLabel = UILabel()
     
+    let indicator = UIActivityIndicatorView()
+    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?)
     {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+       
         
         basicView.backgroundColor = UIColor.whiteColor()
         contentView.addSubview(basicView)
         
-        bigImage.backgroundColor = UIColor.yellowColor()
+        bigImage.backgroundColor = UIColor.grayColor()
         basicView.addSubview(bigImage)
+        
+        indicator.frame = CGRectMake(30, 100, 60, 60)
+        indicator.activityIndicatorViewStyle = .Gray
+        bigImage.addSubview(indicator)
         
         titleTextView.backgroundColor = UIColor.redColor()
         titleTextView.scrollEnabled = false
