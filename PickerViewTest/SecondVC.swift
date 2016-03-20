@@ -28,9 +28,11 @@ class SecondVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
     {
         self.view.backgroundColor = UIColor.whiteColor()
         
+        tableView.registerClass(MainCell.self, forCellReuseIdentifier: "cell")
+        automaticallyAdjustsScrollViewInsets = false
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.registerClass(MainCell.self, forCellReuseIdentifier: "cell")
+        tableView.separatorStyle = .None
         
         
         self.view.addSubview(tableView)
@@ -59,7 +61,7 @@ class SecondVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! MainCell
-        
+        cell.selectionStyle = .None
     
         
         
@@ -68,7 +70,17 @@ class SecondVC: UIViewController , UITableViewDelegate , UITableViewDataSource {
     
     func autoLayout()
     {
+        tableView.translatesAutoresizingMaskIntoConstraints = (false)
         
+        let dic = ["tableView":tableView]
+        
+        
+        ////tableView
+        let tableView_H = NSLayoutConstraint.constraintsWithVisualFormat("H:|[tableView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: dic)
+        self.view.addConstraints(tableView_H)
+        
+        let tableView_V = NSLayoutConstraint.constraintsWithVisualFormat("V:|-100-[tableView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views:dic)
+        self.view.addConstraints(tableView_V)
     }
     
 //    override func didReceiveMemoryWarning()
