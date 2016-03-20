@@ -7,6 +7,6 @@ target 'PickerViewTest' do
 
 pod 'Alamofire'
 pod 'AlamofireImage'
-pod 'SwiftyJSON'
+
 end
 

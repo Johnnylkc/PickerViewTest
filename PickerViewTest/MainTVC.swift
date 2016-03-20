@@ -11,24 +11,22 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON  ////目前還沒用到
 
-class MainTVC: UITableViewController {
+class MainTVC: UITableViewController  {
 
     
     var jsonArray = NSMutableArray()
     var testarray = NSMutableArray()
     var johnnyArray = NSMutableArray()
     
-    let selectView = UIView()
+    let searchBar = UISearchBar()
+    let toolBar = UIToolbar()
+   
 
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        self.tableView.registerClass(MainCell.self, forCellReuseIdentifier: "cell")
-        self.tableView.backgroundColor = UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1)
-        self.tableView.separatorStyle = .None
-        self.tableView.rowHeight = 200
         
         allUI()
         alamofireGet()
@@ -38,9 +36,18 @@ class MainTVC: UITableViewController {
 
     func allUI()
     {
-        selectView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 50)
-        selectView.backgroundColor = UIColor.brownColor()
-        //self.tableView.addSubview(selectView)
+        self.tableView.registerClass(MainCell.self, forCellReuseIdentifier: "cell")
+        self.tableView.backgroundColor = UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1)
+        self.tableView.separatorStyle = .None
+        self.tableView.rowHeight = 200
+
+        self.navigationItem.titleView = searchBar
+        searchBar.placeholder = "想找些什麼嗎？"
+        
+        toolBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 30)
+        toolBar.backgroundColor = UIColor.redColor()
+        self.view.addSubview(toolBar)
+        
         
     }
     
@@ -53,14 +60,9 @@ class MainTVC: UITableViewController {
                 if let JSON = response.result.value
                 {
                     self.jsonArray = JSON as! NSMutableArray
-                    //print("這是整個JSON\(self.jsonArray)")
-                    
-                    
                     
                     for item in self.jsonArray
                     {
-                        
-                        
                         let oneArray:NSMutableArray = item["color"] as! NSMutableArray
                         
                             for item2 in oneArray
@@ -82,9 +84,7 @@ class MainTVC: UITableViewController {
                     
                     }
             
-                  
-            
-           
+                    
                 }
             
             self.tableView.reloadData()
@@ -92,11 +92,17 @@ class MainTVC: UITableViewController {
     }
     
     
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
+    
+    
+    
+    
+    
+//    override func didReceiveMemoryWarning()
+//    {
+//        super.didReceiveMemoryWarning()
+//        // Dispose of any resources that can be recreated.
+//    }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {

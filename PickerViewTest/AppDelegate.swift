@@ -17,14 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     {
 
-        let onePage = MainTVC()
-        let onePageNav = UINavigationController(rootViewController: onePage)
+        let onePage = LandingVC()
         
-//        let twoPage = TestVC()
-//        let twoPageNav = UINavigationController(rootViewController: twoPage)
+
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.rootViewController = onePageNav
+        self.window?.rootViewController = onePage
         self.window?.makeKeyAndVisible()
         
         
