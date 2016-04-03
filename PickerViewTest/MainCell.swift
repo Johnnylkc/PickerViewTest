@@ -28,7 +28,7 @@ class MainCell: UITableViewCell {
         basicView.backgroundColor = UIColor.whiteColor()
         contentView.addSubview(basicView)
         
-        bigImage.backgroundColor = UIColor.grayColor()
+        bigImage.backgroundColor = UIColor.whiteColor()
         basicView.addSubview(bigImage)
         
         indicator.frame = CGRectMake(30, 100, 60, 60)

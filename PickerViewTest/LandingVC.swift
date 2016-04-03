@@ -12,7 +12,6 @@ class LandingVC: UIViewController{
 
     
     let loginButton = UIButton()
-    let navi = UINavigationController()
     
     override func viewDidLoad()
     {
@@ -33,7 +32,7 @@ class LandingVC: UIViewController{
         loginButton.titleLabel?.font = UIFont.boldSystemFontOfSize(20)
         loginButton.backgroundColor = UIColor.redColor()
         loginButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        loginButton.addTarget(self, action: "goTo:", forControlEvents: .TouchDown)
+        loginButton.addTarget(self, action: #selector(LandingVC.goTo(_:)), forControlEvents: .TouchDown)
         self.view.addSubview(loginButton)
         
     }
