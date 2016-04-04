@@ -1,5 +1,5 @@
 //
-//  SearchResultsCell.swift
+//  DetailCell.swift
 //  PickerViewTest
 //
 //  Created by 劉坤昶 on 2016/4/3.
@@ -8,9 +8,8 @@
 
 import UIKit
 
-class SearchResultsCell: UITableViewCell {
+class DetailCell: UITableViewCell {
 
-    
     
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?)
@@ -24,7 +23,6 @@ class SearchResultsCell: UITableViewCell {
     {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     
     

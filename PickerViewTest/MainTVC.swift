@@ -4,7 +4,7 @@
 //
 //  Created by 劉坤昶 on 2016/3/3.
 //  Copyright © 2016年 JohnnyKetchup. All rights reserved.
-//
+////
 
 import UIKit
 import Alamofire
@@ -46,7 +46,7 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
         self.tableView.separatorStyle = .None
         self.tableView.rowHeight = 200
         
-        
+        ////搜尋相關設定
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -59,9 +59,10 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
         searchController.searchBar.setValue("取消", forKey:"_cancelButtonText")
         let textField = searchController.searchBar.valueForKey("searchField") as! UITextField
         textField.backgroundColor = UIColor.yellowColor()
+        
         self.navigationItem.titleView = searchController.searchBar
 
-        
+    
       
     }
     
@@ -130,7 +131,7 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if searchController.active  && searchController.searchBar.text != ""
+        if  searchController.searchBar.text != ""
         {
             return self.filterArray.count
         }
@@ -142,7 +143,19 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     {
-        return 200
+      
+        var rowHeight : CGFloat = 0
+        
+        if cellChange
+        {
+            rowHeight = 200
+        }
+        else
+        {
+            rowHeight = 50
+        }
+        
+        return rowHeight
     }
 
   
@@ -150,15 +163,15 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         
-        if cellChange {
+        if cellChange
+        {
             
-           
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! MainCell
         
             cell.backgroundColor = UIColor.clearColor()
             cell.selectionStyle = .None
         
-            //        let dic1 = self.jsonArray[indexPath.row]
+//            let dic1 = self.jsonArray[indexPath.row]
             let dic2 = self.testarray[indexPath.row]
             let dic3 = self.threeArray[indexPath.row]
         
@@ -176,7 +189,7 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
                                 cell.indicator.stopAnimating()
                                 cell.bigImage.image = image
                             }
-                    
+                     
                         }
                     }
                 }
@@ -202,23 +215,51 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
             
                     cell.priceLabel.attributedText = attributedText
                 }
-            
         
-
                 return cell
             
         }
         else
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier("searchCell", forIndexPath: indexPath) as! SearchResultsCell
+            //let cell = tableView.dequeueReusableCellWithIdentifier("searchCell", forIndexPath: indexPath) as! SearchResultsCell
+            let cell = UITableViewCell(style: .Value1, reuseIdentifier: "searchCell")
             
-            cell.textLabel?.text = "ddd"
-
+            if searchController.searchBar.text != ""
+            {
+                cell.textLabel?.text = filterArray[indexPath.row]
+                cell.backgroundColor = UIColor.whiteColor()
+            }
+            else
+            {
+                cell.textLabel?.text = " "
+                cell.backgroundColor = UIColor.clearColor()
+            }
+            
+            
+            
+            
             return cell
         }
         
         
     }
+    
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        
+        let controller = DetailVC()
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+        let oldDic01:NSDictionary = threeArray[indexPath.row] as! NSDictionary
+        let oldDic02:NSDictionary = testarray[indexPath.row] as! NSDictionary
+        
+        controller.catchDic01 = oldDic01
+        controller.catchDic02 = oldDic02
+        
+    }
+    
+    
     
 
     ////搜尋霸的代理方法 當搜尋霸開始編輯時
@@ -227,7 +268,7 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
         print("你開始搜尋囉")
 
         cellChange = false
-       // tableView.registerClass(SearchResultsCell.self, forCellReuseIdentifier: "searchCell")
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "searchCell")
 
         
         return true
@@ -238,7 +279,7 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
     {
         print("結束搜尋")
         cellChange = true
-      //  tableView.registerClass(MainCell.self, forCellReuseIdentifier: "cell")
+        tableView.registerClass(MainCell.self, forCellReuseIdentifier: "cell")
 
 
         
