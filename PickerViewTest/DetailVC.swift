@@ -20,15 +20,27 @@ class DetailVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     var catchDic01 = NSDictionary()
     var catchDic02 = NSDictionary()
     
+    var detailName = NSString()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
         allUI()
-        getImage()
+//        getImage()
 
+        
     }
-
+    
+    override func viewWillDisappear(animated: Bool)
+    {
+        super.viewWillDisappear(true)
+        
+        let controller = MainTVC()
+        controller.searchController.active = true
+    }
+    
+    
     
     func allUI()
     {
@@ -49,7 +61,18 @@ class DetailVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         
         nameLabel.frame = CGRectMake(10, topImage.frame.size.height-30, 300, 30)
         nameLabel.backgroundColor = UIColor.lightGrayColor()
-        nameLabel.text = catchDic02["name"] as? String
+        
+        let controller = MainTVC()
+        if controller.searchController.searchBar.text != ""
+        {
+            nameLabel.text = detailName as String
+        }
+        else
+        {
+            nameLabel.text = catchDic02["name"] as? String
+            
+        }
+        
         nameLabel.sizeToFit()
         topImage.addSubview(nameLabel)
         
@@ -60,6 +83,12 @@ class DetailVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     func getImage()
     {
+        
+        
+        
+        
+        
+        
         let imageURL = "http://magipea.com/admin/uploads/" + "\(catchDic01["image"] as! String)"
         Alamofire.request(.GET, imageURL).responseImage { response in
             

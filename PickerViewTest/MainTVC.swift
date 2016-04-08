@@ -24,13 +24,12 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
     
     var searchController = UISearchController()
     
-    var cellChange = Bool()
+   // var cellChange:Bool = true
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        cellChange = true
         
         allUI()
         alamofireGet()
@@ -106,13 +105,11 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
                     
                     }
                     
-                    
-                    for things in self.testarray
+                    //////搜尋用
+                    for item4 in self.testarray
                     {
-                        self.nameArray.addObject(things["name"] as! String)
+                        self.nameArray.addObject(item4["name"] as! String)
                     }
-                    
-                    
                     
                     
                 }
@@ -131,9 +128,9 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if  searchController.searchBar.text != ""
+        if  searchController.active
         {
-            return self.filterArray.count
+            return filterArray.count
         }
         else
         {
@@ -146,7 +143,7 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
       
         var rowHeight : CGFloat = 0
         
-        if cellChange
+        if !searchController.active
         {
             rowHeight = 200
         }
@@ -163,7 +160,7 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         
-        if cellChange
+        if !searchController.active
         {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! MainCell
@@ -221,22 +218,19 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
         }
         else
         {
-            //let cell = tableView.dequeueReusableCellWithIdentifier("searchCell", forIndexPath: indexPath) as! SearchResultsCell
+            
             let cell = UITableViewCell(style: .Value1, reuseIdentifier: "searchCell")
             
-            if searchController.searchBar.text != ""
+            if  searchController.searchBar.text != ""
             {
                 cell.textLabel?.text = filterArray[indexPath.row]
                 cell.backgroundColor = UIColor.whiteColor()
             }
             else
             {
-                cell.textLabel?.text = " "
-                cell.backgroundColor = UIColor.clearColor()
+                cell.textLabel?.text = "rrr"
+                cell.backgroundColor = UIColor.yellowColor()
             }
-            
-            
-            
             
             return cell
         }
@@ -247,15 +241,34 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
+       
+        if searchController.active && searchController.searchBar.text != ""
+        {
+            let controller = DetailVC()
+            self.navigationController?.pushViewController(controller, animated: true)
+            //searchController.active = false
+            self.view.endEditing(true)
+            
+            
+            let name = filterArray[indexPath.row]
+            controller.detailName = name as String
+            
+                        
+        }
+        else
+        {
+            let controller = DetailVC()
+            self.navigationController?.pushViewController(controller, animated: true)
+
+            let oldDic01:NSDictionary = threeArray[indexPath.row] as! NSDictionary
+            let oldDic02:NSDictionary = testarray[indexPath.row] as! NSDictionary
+            
+            controller.catchDic01 = oldDic01
+            controller.catchDic02 = oldDic02
+            
+            
+        }
         
-        let controller = DetailVC()
-        self.navigationController?.pushViewController(controller, animated: true)
-        
-        let oldDic01:NSDictionary = threeArray[indexPath.row] as! NSDictionary
-        let oldDic02:NSDictionary = testarray[indexPath.row] as! NSDictionary
-        
-        controller.catchDic01 = oldDic01
-        controller.catchDic02 = oldDic02
         
     }
     
@@ -267,9 +280,7 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
     {
         print("你開始搜尋囉")
 
-        cellChange = false
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "searchCell")
-
         
         return true
     }
@@ -278,11 +289,9 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
     func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool
     {
         print("結束搜尋")
-        cellChange = true
+
         tableView.registerClass(MainCell.self, forCellReuseIdentifier: "cell")
 
-
-        
         return true
     }
     
@@ -300,10 +309,6 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
         
         self.tableView.reloadData()
         
-        print("有到這邊嗎")
-
-        
-        
     }
 
     
@@ -311,49 +316,11 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
     
     
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
+    
+    
+    
+    
+    
+    
+  
+}////////////////////////last

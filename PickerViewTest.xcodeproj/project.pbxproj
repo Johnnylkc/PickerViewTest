@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		365A13C5EC49CF2EBF171684 /* Pods_PickerViewTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD52F8733D65850E43AC7CD9 /* Pods_PickerViewTest.framework */; };
+		B2218AB51CB3DAB3002633AE /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2218AB41CB3DAB3002633AE /* SearchVC.swift */; };
 		B28295461C883D9F0088A6B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28295451C883D9F0088A6B3 /* AppDelegate.swift */; };
 		B282954D1C883D9F0088A6B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B282954C1C883D9F0088A6B3 /* Assets.xcassets */; };
 		B28295501C883D9F0088A6B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B282954E1C883D9F0088A6B3 /* LaunchScreen.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B2218AB41CB3DAB3002633AE /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		B28295421C883D9F0088A6B3 /* PickerViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PickerViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B28295451C883D9F0088A6B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B282954C1C883D9F0088A6B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				B2A580481C9C18C3000A58A9 /* LandingVC.swift */,
 				B28295571C883DC10088A6B3 /* MainTVC.swift */,
 				B2E1C3141CB158A900CF1BDC /* DetailVC.swift */,
+				B2218AB41CB3DAB3002633AE /* SearchVC.swift */,
 				B2A5804C1C9C1AF2000A58A9 /* SecondVC.swift */,
 			);
 			name = Controller;
@@ -237,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2218AB51CB3DAB3002633AE /* SearchVC.swift in Sources */,
 				B2E1C3171CB1598200CF1BDC /* DetailCell.swift in Sources */,
 				B2A580491C9C18C3000A58A9 /* LandingVC.swift in Sources */,
 				B2A5804D1C9C1AF2000A58A9 /* SecondVC.swift in Sources */,
