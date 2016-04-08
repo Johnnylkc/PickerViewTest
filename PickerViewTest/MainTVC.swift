@@ -246,7 +246,6 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
         {
             let controller = DetailVC()
             self.navigationController?.pushViewController(controller, animated: true)
-            //searchController.active = false
             self.view.endEditing(true)
             
             
@@ -265,7 +264,6 @@ class MainTVC: UITableViewController ,UISearchBarDelegate ,  UISearchResultsUpda
             
             controller.catchDic01 = oldDic01
             controller.catchDic02 = oldDic02
-            
             
         }
         

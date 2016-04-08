@@ -26,19 +26,15 @@ class DetailVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
     {
         super.viewDidLoad()
 
+        
+        
         allUI()
-//        getImage()
+        getImage()
 
         
     }
     
-    override func viewWillDisappear(animated: Bool)
-    {
-        super.viewWillDisappear(true)
-        
-        let controller = MainTVC()
-        controller.searchController.active = true
-    }
+
     
     
     
@@ -63,7 +59,7 @@ class DetailVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         nameLabel.backgroundColor = UIColor.lightGrayColor()
         
         let controller = MainTVC()
-        if controller.searchController.searchBar.text != ""
+        if detailName != ""
         {
             nameLabel.text = detailName as String
         }
@@ -76,32 +72,37 @@ class DetailVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         nameLabel.sizeToFit()
         topImage.addSubview(nameLabel)
         
-        
+        print(controller.searchController.searchBar.text)
         
     }
     
     
     func getImage()
     {
-        
-        
-        
-        
-        
-        
-        let imageURL = "http://magipea.com/admin/uploads/" + "\(catchDic01["image"] as! String)"
-        Alamofire.request(.GET, imageURL).responseImage { response in
-            
-            if let image = response.result.value
-            {
-                dispatch_async(dispatch_get_main_queue())
-                {
-                    self.topImage.image = image
-                }
                 
-            }
+        if detailName != ""
+        {
+            topImage.image = UIImage(named: "001")
         }
+        else
+        {
+            let imageURL = "http://magipea.com/admin/uploads/" + "\(catchDic01["image"] as! String)"
+            Alamofire.request(.GET, imageURL).responseImage { response in
+                
+                if let image = response.result.value
+                {
+                    dispatch_async(dispatch_get_main_queue())
+                    {
+                        self.topImage.image = image
+                    }
+                    
+                }
+            }
 
+            
+        }
+       
+        
     }
     
     
